@@ -734,7 +734,7 @@ screenshot of application in browser
 
 If you click Send Snapshot the binary data is sent to the endpoint and broadcast to the connected clients.
 
-# References
+## References
 * [Collaborative Whiteboard using WebSocket in GlassFish 4 - Text/JSON and Binary/ArrayBuffer Data Transfer (TOTD #189) ](https://blogs.oracle.com/arungupta/entry/collaborative_whiteboard_using_websocket_in)
 * [Video of Using the WebSocket API in a Web Application](https://netbeans.org/kb/docs/javaee/maven-websocketapi-screencast.html)
 * [Arun Gupta's Blog](http://blog.arungupta.me/)
