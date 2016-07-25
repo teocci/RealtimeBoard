@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="RealtimeBoard">
+    <output-path>$PROJECT_DIR$/out/artifacts/RealtimeBoard</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="RealtimeBoard/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="RealtimeBoard" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
