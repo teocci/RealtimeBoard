@@ -717,6 +717,7 @@ You can modify the application to enable the user to stop sending data to the en
 
 2. Open index.html and modify the <table> element to add a checkbox to the form.
 
+    ```
     <tr>
         <th> </th>
         <td><input type="submit" value="Send Snapshot" onclick="defineImageBinary(); return false;"></td>
@@ -724,11 +725,11 @@ You can modify the application to enable the user to stop sending data to the en
         <td> </td>
         <td> </td>
     </tr>
-                    
+    ```
 
-    No data is sent when the Online checkbox is deselected, but the client will still receive data from the endpoint.
+    No data is sent when the `Online checkbox` is deselected, but the client will still receive data from the endpoint.
 
-If you add the Send Snapshot button and the Online checkbox and run the application again you will see the new elements in the index page. If you open another browser and deselect the Online button you can see that the JSON message is not sent to the endpoint when you click in the canvas.
+If you add the Send Snapshot button and the `Online checkbox` and run the application again you will see the new elements in the index page. If you open another browser and deselect the `Online` button you can see that the JSON message is not sent to the endpoint when you click in the canvas.
 screenshot of application in browser
 
 If you click Send Snapshot the binary data is sent to the endpoint and broadcast to the connected clients.
