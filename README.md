@@ -54,7 +54,7 @@ The goal of this exercise is to create a web application project using the New P
 1. Choose File > New Project from the main menu.
 2. Select Java Enterprise. Click Next.
 3. Type RealtimeBoard for the the Project Name and set the Project Location.
-4. Type org.sample for the Group Id. Click Next.
+4. Type net.teocci for the Group Id. Click Next.
 5. Select GlassFish Server 4.1 for the Server.
 6. Set the Java EE Version to Java EE 7 Web. Click Finish.
 
@@ -74,7 +74,7 @@ In this exercise you will use a wizard in the IDE to help you create the WebSock
 
 1. Right-click the Source Packages node in the Projects window and choose New > Other.
 2. Select WebSocket Endpoint in the Web category. Click Next.
-3. Type MyWhiteboard as the Class Name.
+3. Type BoardServer as the Class Name.
 4. Select net.teocci.websocket in the Package dropdown list.
 5. Type /actions as the WebSocket URI. Click Finish.
 6. WebSocket Endpoint in the New File wizard
@@ -83,7 +83,7 @@ In this exercise you will use a wizard in the IDE to help you create the WebSock
 
     ```
     @ServerEndpoint("/actions")
-    public class MyWhiteboard {
+    public class BoardServer {
 
         @OnMessage
         public String onMessage(String message) {
@@ -97,7 +97,7 @@ In this exercise you will use a wizard in the IDE to help you create the WebSock
 
     ```
     @ServerEndpoint("/actions")
-    public class MyWhiteboard {
+    public class BoardServer {
         private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
 
         @OnMessage
@@ -142,7 +142,7 @@ In this exercise you will create a JavaScript file that will initiate a WebSocke
 4. Add the following to the JavaScript file.
 
     ```
-    var wsUri = "ws://" + document.location.host + document.location.pathname + "whiteboardendpoint";
+    var wsUri = "ws://" + document.location.host + document.location.pathname + "actions";
     var websocket = new WebSocket(wsUri);
 
     websocket.onerror = function(evt) { onError(evt) };
@@ -203,9 +203,9 @@ When you run the application the IDE will start the GlassFish server and build a
 
 Connected to endpoint message in browser window
 
-In the browser window you can see the following endpoint where messages are accepted: http://localhost:8080/WhiteboardApp/actions
+In the browser window you can see the following endpoint where messages are accepted: http://localhost:8080/RealtimeBoard/actions
 
-## Creating the Whiteboard
+## Creating the RealtimeBoard
 
 In this section you will create the classes and JavaScript files to send and receive JSON text messages. You will also add an HTML5 Canvas element for painting and displaying some content and an HTML <form> with radio buttons that enable you to specify the shape and color of the paintbrush.
 
@@ -215,38 +215,38 @@ In this exercise you add a canvas element and a form element to the default inde
 1. Open index.html in the source editor.
 2. Delete the <div> tag that you added to test the endpoint and add the following <table> and <form> elements (in bold) after the opening body tag.
 
-```
-<h1>Collaborative Whiteboard App</h1>
-        
-    <table>
-        <tr>
-            <td>
-            </td>
-            <td>
-                <form name="inputForm">
-                    
-
-                </form>
-            </td>
-        </tr>
-    </table>
-    <script type="text/javascript" src="websocket.js"></script>
-    </body>
-```
+    ```
+    <h1>Collaborative Board App</h1>
+            
+        <table>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <form name="inputForm">
+                        
+    
+                    </form>
+                </td>
+            </tr>
+        </table>
+        <script type="text/javascript" src="js/websocket.js"></script>
+        </body>
+    ```
 
 3. Add the following code (in bold) for the canvas element.
 
-```
+    ```
     <table>
         <tr>
             <td>
                 <canvas id="myCanvas" width="150" height="150" style="border:1px solid #000000;"></canvas>
             </td>
-```
+    ```
 
 4. Add the following <table> to add radio buttons to select the color and shape. Save your changes.
 
-```
+    ```
     <table>
         <tr>
             <td>
@@ -255,7 +255,7 @@ In this exercise you add a canvas element and a form element to the default inde
             <td>
                 <form name="inputForm">
                     <table>
-
+    
                         <tr>
                             <th>Color</th>
                             <td><input type="radio" name="color" value="#FF0000" checked="true">Red</td>
@@ -263,7 +263,7 @@ In this exercise you add a canvas element and a form element to the default inde
                             <td><input type="radio" name="color" value="#FF9900">Orange</td>
                             <td><input type="radio" name="color" value="#33CC33">Green</td>
                         </tr>
-
+    
                         <tr>
                             <th>Shape</th>
                             <td><input type="radio" name="shape" value="square" checked="true">Square</td>
@@ -271,10 +271,10 @@ In this exercise you add a canvas element and a form element to the default inde
                             <td> </td>
                             <td> </td>
                         </tr>
-
+    
                     </table>
                 </form>
-```
+    ```
 
 The shape, color, and coordinates of any figure drawn on the canvas will be converted to a string in a JSON structure and sent as a message to the WebSocket endpoint.
 
@@ -282,94 +282,106 @@ The shape, color, and coordinates of any figure drawn on the canvas will be conv
 
 In this exercise you will create a simple POJO.
 
-    Right-click the project node and choose New > Java Class.
-    Type Figure as the Class Name and choose org.sample.whiteboardapp in the Package dropdown list. Click Finish.
-    In the source editor, add the following (in bold):
+1. Right-click the project node and choose New > Java Class.
+2. Type Figure as the Class Name and choose net.teocci.model in the Package dropdown list. Click Finish.
+3. In the source editor, add the following (in bold):
 
+    ```
     public class Figure {
         private JsonObject json;
     }
-
+    ```
     When you add the code you will be prompted to add an import statement for javax.json.JsonObject. If you are not prompted, type Alt-Enter.
-
     For more about javax.json.JsonObject, see the Java API for JSON Processing (JSR 353), which is part of the Java EE 7 Specification.
-    Create a getter and setter for json.
+    
+4. Create a getter and setter for json.
 
     You can select getter and setter in the Insert Code popup menu (Alt-Ins on Windows; Ctrl-I on Mac) to open the Generate Getters and Setter dialog box. Alternatively, you can choose Source > Insert Code from the main menu.
     Generate Getter and Setter dialog box
-    Add a constructor for json.
-
-        public Figure(JsonObject json) {
-            this.json = json;
-        }
-
+    
+5. Add a constructor for json.
+    
+    ```
+    public Figure(JsonObject json) {
+        this.json = json;
+    }
+    ```
+    
     You can choose Constructor in the Insert Code popup menu (Ctrl-I).
     Generate Constructor popup menu
-    Add the following toString method:
+    
+6. Add the following toString method:
 
-        @Override
-        public String toString() {
-            StringWriter writer = new StringWriter();
-            Json.createWriter(writer).write(json);
-            return writer.toString();
-        }
+    ```
+    @Override
+    public String toString() {
+        StringWriter writer = new StringWriter();
+        Json.createWriter(writer).write(json);
+        return writer.toString();
+    }
+    ```
+    
+7. Right-click in the editor and choose Fix Imports (Alt-Shift-I; ⌘-Shift-I on Mac). Save your changes.
 
-    Right-click in the editor and choose Fix Imports (Alt-Shift-I; ⌘-Shift-I on Mac). Save your changes.
-
-Create a Coordinates Class
+### Create a Coordinates Class
 
 You now create a class for the coordinates of the figures that are painted on the canvas.
 
-    Right-click the project node and choose New > Java Class.
-    In the New Java Class wizard, type Coordinates as the Class Name and select org.sample.whiteboardapp in the Package dropdown list. Click Finish.
-    In the source editor, add the following code. Save your changes.
+1. Right-click the project node and choose New > Java Class.
+2. In the New Java Class wizard, type Coordinates as the Class Name and select org.sample.whiteboardapp in the Package dropdown list. Click Finish.
+3. In the source editor, add the following code. Save your changes.
 
-        private float x;
-        private float y;
+    ```
+    private float x;
+    private float y;
 
-        public Coordinates() {
-        }
+    public Coordinates() {
+    }
 
-        public Coordinates(float x, float y) {
-            this.x = x;
-            this.y = y;
-        }
+    public Coordinates(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
 
-        public float getX() {
-            return x;
-        }
+    public float getX() {
+        return x;
+    }
 
-        public void setX(float x) {
-            this.x = x;
-        }
+    public void setX(float x) {
+        this.x = x;
+    }
 
-        public float getY() {
-            return y;
-        }
+    public float getY() {
+        return y;
+    }
 
-        public void setY(float y) {
-            this.y = y;
-        }
-                    
+    public void setY(float y) {
+        this.y = y;
+    }
+    ```               
 
 The class only contains a fields for the x and y coordinates and some getters and setters.
-Generate the JSON String
 
+### Generate the JSON String
 In this exercise you will create a JavaScript file that puts the details of the figure that is drawn on the canvas element into a JSON structure that is sent to the websocket endpoint.
 
-    Right-click the project node and choose New > JavaScript File to open the New JavaScript File wizard.
-    Type whiteboard for the File Name. Click Finish.
-
+1. Right-click the project node and choose New > JavaScript File to open the New JavaScript File wizard.
+2. Type whiteboard for the File Name. Click Finish.
     When you click Finish the IDE creates the empty JavaScript file and opens the file in the editor. You can see the new file under the Web Pages node in the Projects window.
-    Add the following code to initialize the canvas and to add an event listener.
 
+3. Add the following code to initialize the canvas and to add an event listener.
+
+    ```
     var canvas = document.getElementById("myCanvas");
     var context = canvas.getContext("2d");
     canvas.addEventListener("click", defineImage, false);
-
+    ```
+    
     You can see that the defineImage method is invoked when the user clicks in the canvas element.
-    Add the following getCurrentPos, defineImage and drawImageText methods to construct the JSON structure and send it to the endpoint (sendText(json)).
+    
+4. Add the following getCurrentPos, defineImage and drawImageText methods to construct the JSON structure and send it to the endpoint (sendText(json)).
 
+    ```
     function getCurrentPos(evt) {
         var rect = canvas.getBoundingClientRect();
         return {
@@ -423,9 +435,11 @@ In this exercise you will create a JavaScript file that puts the details of the 
             break;
         }
     }
-
+    ```
+    
     The JSON structure that is sent will be similar to the following:
 
+    ```
     {
      "shape": "square",
      "color": "#FF0000",
@@ -433,11 +447,13 @@ In this exercise you will create a JavaScript file that puts the details of the 
      "x": 31.59999942779541,
      "y": 49.91999053955078
      }
-    } 
-
+    }
+    ```
+    
     You now need to add a sendText(json) method to send the JSON string using websocket.send().
-    Open websocket.js in the editor and add the following methods for sending JSON to the endpoint and for drawing the image when a message is received from the endpoint.
+5. Open websocket.js in the editor and add the following methods for sending JSON to the endpoint and for drawing the image when a message is received from the endpoint.
 
+    ```
     websocket.onmessage = function(evt) { onMessage(evt) };
 
     function sendText(json) {
@@ -449,148 +465,167 @@ In this exercise you will create a JavaScript file that puts the details of the 
         console.log("received: " + evt.data);
         drawImageText(evt.data);
     }
-
+    ```
+    
     Note. You can delete the code that you added to websocket.js for testing the endpoint.
-    Add the following line (in bold) to the bottom of index.html to load whiteboard.js.
+    
+6. Add the following line (in bold) to the bottom of index.html to load js/board.js.
 
+    ```
             </table>
         <script type="text/javascript" src="websocket.js"></script>
-        <script type="text/javascript" src="whiteboard.js"></script>
+        <script type="text/javascript" src="js/board.js"></script>
     <body>
-                    
+    ```    
 
-Implement the Encoder and Decoder Interfaces
-
+### Implement the Encoder and Decoder Interfaces
 In this exercise you create classes to implement decoder and encoder interfaces to decode web socket messages (JSON) to the POJO class Figure and to encode Figure as a JSON string for sending to the endpoint.
 
 For more details, see the section about message types and encoders and decoders in the technical article JSR 356, Java API for WebSocket.
 
-    Right-click the project node and choose New > Java Class.
-    Type FigureEncoder as the Class Name and choose org.sample.whiteboardapp in the Package dropdown list. Click Finish.
-    In the source editor, implement the WebSocket Encoder interface by adding the following code (in bold):
+1. Right-click the project node and choose New > Java Class.
+2. Type FigureEncoder as the Class Name and choose org.sample.whiteboardapp in the Package dropdown list. Click Finish.
+3. In the source editor, implement the WebSocket Encoder interface by adding the following code (in bold):
 
-                
+    ```
     public class FigureEncoder implements Encoder.Text<Figure> {
         
     }
+    ```
 
-    Add an import statement for javax.websocket.Encoder and implement the abstract methods.
+4. Add an import statement for javax.websocket.Encoder and implement the abstract methods.
 
     Place your cursor in the class declaration and type Alt-Enter and choose Implement all abstract methods from the popup menu.
-    Modify the generated abstract methods by making the following changes (in bold). Save your changes.
 
-        @Override
-        public String encode(Figure figure) throws EncodeException {
-            return figure.getJson().toString();
-        }
+5. Modify the generated abstract methods by making the following changes (in bold). Save your changes.
 
-        @Override
-        public void init(EndpointConfig ec) {
-            System.out.println("init");
-        }
+    ```
+    @Override
+    public String encode(Figure figure) throws EncodeException {
+        return figure.getJson().toString();
+    }
 
-        @Override
-        public void destroy() {
-            System.out.println("destroy");
-        }
+    @Override
+    public void init(EndpointConfig ec) {
+        System.out.println("init");
+    }
 
-    Right-click the project node and choose New > Java Class.
-    Type FigureDecoder as the Class Name and choose org.sample.whiteboardapp in the Package dropdown list. Click Finish.
-    In the source editor, implement the WebSocket Decoder interface by adding the following code (in bold):
+    @Override
+    public void destroy() {
+        System.out.println("destroy");
+    }
+    ```
 
-                
+6. Right-click the project node and choose New > Java Class.
+7. Type FigureDecoder as the Class Name and choose org.sample.whiteboardapp in the Package dropdown list. Click Finish.
+8. In the source editor, implement the WebSocket Decoder interface by adding the following code (in bold):
+
+    ```
     public class FigureDecoder implements Decoder.Text<Figure> {
         
     }
+    ```
+9. Add an import statement for javax.websocket.Decoder and implement abstract methods.
+10. Make the following changes (in bold) to the generated abstract methods.
 
-    Add an import statement for javax.websocket.Decoder and implement abstract methods.
-    Make the following changes (in bold) to the generated abstract methods.
+    ```
+    @Override
+    public Figure decode(String string) throws DecodeException {
+        JsonObject jsonObject = Json.createReader(new StringReader(string)).readObject();
+        return  new Figure(jsonObject);
+    }
 
-        @Override
-        public Figure decode(String string) throws DecodeException {
-            JsonObject jsonObject = Json.createReader(new StringReader(string)).readObject();
-            return  new Figure(jsonObject);
+    @Override
+    public boolean willDecode(String string) {
+        try {
+            Json.createReader(new StringReader(string)).readObject();
+            return true;
+        } catch (JsonException ex) {
+            ex.printStackTrace();
+            return false;
         }
+    
+    }
 
-        @Override
-        public boolean willDecode(String string) {
-            try {
-                Json.createReader(new StringReader(string)).readObject();
-                return true;
-            } catch (JsonException ex) {
-                ex.printStackTrace();
-                return false;
-            }
-        
-        }
+    @Override
+    public void init(EndpointConfig ec) {
+        System.out.println("init");
+    }
 
-        @Override
-        public void init(EndpointConfig ec) {
-            System.out.println("init");
-        }
+    @Override
+    public void destroy() {
+        System.out.println("destroy");
+    }
+    ```
+    
+11. Fix the imports and save your changes.
 
-        @Override
-        public void destroy() {
-            System.out.println("destroy");
-        }
-
-    Fix the imports and save your changes.
-
-You now need to modify MyWhiteboard.java to specify the encoder and decoder.
-Running the Application
+You now need to modify BoardServer.java to specify the encoder and decoder.
+### Running the Application
 
 You are now almost ready to run the application. In this exercise you modify the WebSocket endpoint class to specify the encoder and decoder for the JSON string and to add a method to send the JSON string to connected clients when a message is received.
 
-    Open MyWhiteboard.java in the editor.
-    Modify the @ServerEndpoint annotation to specify the encoder and decoder for the endopoint. Note that you need to explicitly specify the value parameter for the name of the endpoint.
+1. Open BoardServer.java in the editor.
+2. Modify the @ServerEndpoint annotation to specify the encoder and decoder for the endopoint. Note that you need to explicitly specify the value parameter for the name of the endpoint.
 
+    ```
     @ServerEndpoint(value="/actions", encoders = {FigureEncoder.class}, decoders = {FigureDecoder.class})
-            
+    ```    
 
-    Delete the onMessage method that was generated by default.
-    Add the following broadcastFigure method and annotate the method with @OnMessage.
-
-        @OnMessage
-        public void broadcastFigure(Figure figure, Session session) throws IOException, EncodeException {
-            System.out.println("broadcastFigure: " + figure);
-            for (Session peer : peers) {
-                if (!peer.equals(session)) {
-                    peer.getBasicRemote().sendObject(figure);
-                }
+3. Delete the onMessage method that was generated by default.
+4. Add the following broadcastFigure method and annotate the method with @OnMessage.
+    
+    ```
+    @OnMessage
+    public void broadcastFigure(Figure figure, Session session) throws IOException, EncodeException {
+        System.out.println("broadcastFigure: " + figure);
+        for (Session peer : peers) {
+            if (!peer.equals(session)) {
+                peer.getBasicRemote().sendObject(figure);
             }
         }
+    }
+    ```
 
-    Right-click in the editor and choose Fix Imports (Alt-Shift-I; ⌘-Shift-I on Mac). Save your changes.
-    Right-click the project in the Projects window and choose Run.
+5. Right-click in the editor and choose Fix Imports. Save your changes.
+6. Right-click the project in the Projects window and choose Run.
 
-When you click Run the IDE opens a browser window to http://localhost:8080/WhiteboardApp/.
+When you click Run the IDE opens a browser window to `http://localhost:8080/RealtimeBoard/`.
 
 Note. You might need to undeploy the previous application from the application server or force reload the page in the browser.
 
 If you view the browser messages you can see that a string is sent via JSON to the endpoint each time you click in the canvas.
 screenshot of application in browser
 
-If you open another browser to http://localhost:8080/WhiteboardApp/ you can see that each time you click in the canvas in one browser the new circle or square is reproduced in the canvas of the other browser.
+If you open another browser to `http://localhost:8080/RealtimeBoard/` you can see that each time you click in the canvas in one browser the new circle or square is reproduced in the canvas of the other browser.
 screenshot of application in two browsers
-Sending Binary Data to the Endpoint
+
+## Sending Binary Data to the Endpoint
 
 The application can now process and send a string via JSON to the endpoint and the string is then sent to the connected clients. In this section you will modify the JavaScript files to send and receive binary data.
 
-To send binary data to the endpoint you need to set the binaryType property of WebSocket to arraybuffer. This ensures that any binary transfers using WebSocket are done using ArrayBuffer. The binary data conversion is performed by the defineImageBinary method in whiteboard.js.
+To send binary data to the endpoint you need to set the binaryType property of WebSocket to `arraybuffer`. This ensures that any binary transfers using WebSocket are done using `ArrayBuffer`. The binary data conversion is performed by the `defineImageBinary` method in `js/board.js`.
 
-    Open websocket.js and add the following code to set the binaryType property of WebSocket to arraybuffer.
+1. Open websocket.js and add the following code to set the binaryType property of WebSocket to `arraybuffer`.
 
+
+    ```
     websocket.binaryType = "arraybuffer";
+    ```
 
-    Add the following method to send binary data to the endpoint.
+2. Add the following method to send binary data to the endpoint.
 
+    
+    ```
     function sendBinary(bytes) {
         console.log("sending binary: " + Object.prototype.toString.call(bytes));
         websocket.send(bytes);
     }
+    ```
 
-    Modify the onMessage method to add the following code (in bold) to select the method for updating the canvas according to the type of data in the incoming message.
+3. Modify the `onMessage` method to add the following code to select the method for updating the `canvas` according to the type of data in the incoming message.
 
+    ```
     function onMessage(evt) {
         console.log("received: " + evt.data);
         if (typeof evt.data == "string") {
@@ -599,10 +634,13 @@ To send binary data to the endpoint you need to set the binaryType property of W
             drawImageBinary(evt.data);
         }
     }
+    ```
 
-    The drawImageBinary method is invoked if a message with binary data is received.
-    Open whiteboard.js and add the following methods. The drawImageBinary method is invoked to update the canvas after parsing the incoming binary data. The defineImageBinary method is used to prepare a snapshot of the canvas as binary data.
+    The `drawImageBinary` method is invoked if a message with binary data is received.
+    
+4. Open `js/board.js` and add the following methods. The drawImageBinary method is invoked to update the canvas after parsing the incoming binary data. The defineImageBinary method is used to prepare a snapshot of the canvas as binary data.
 
+    ```
     function drawImageBinary(blob) {
         var bytes = new Uint8Array(blob);
     //    console.log('drawImageBinary (bytes.length): ' + bytes.length);
@@ -629,10 +667,13 @@ To send binary data to the endpoint you need to set the binaryType property of W
         }
         sendBinary(buffer);
     }
+    ```
 
-    You now need to add a way to invoke defineImageBinary when you want to generate the binary data as the type ArrayBuffer and send it to the endpoint.
-    Open index.html and modify the <table> element to add the following row to the table in the form.
+    You now need to add a way to invoke `defineImageBinary` when you want to generate the binary data as the type ArrayBuffer and send it to the endpoint.
+    
+5. Open index.html and modify the `<table>` element to add the following row to the table in the form.
 
+    ```
     <tr>
         <th> </th>
         <td><input type="submit" value="Send Snapshot" onclick="defineImageBinary(); return false;"></td>
@@ -640,11 +681,13 @@ To send binary data to the endpoint you need to set the binaryType property of W
         <td> </td>
         <td> </td>
     </tr>
-                    
+    ```             
 
-    The new row contains a Send Snapshot button to send a binary snapshot of the canvas to the connected peers. The defineImageBinary method in whiteboard.js is invoked when the button is clicked.
-    Open MyWhiteboard.java and add the following method that will send the binary data to peers when the endpoint receives a message with binary data.
+    The new row contains a Send Snapshot button to send a binary snapshot of the canvas to the connected peers. The `defineImageBinary` method in `board.js` is invoked when the button is clicked.
+    
+6. Open `BoardServer.java` and add the following method that will send the binary data to peers when the endpoint receives a message with binary data.
 
+    ```
     @OnMessage
     public void broadcastSnapshot(ByteBuffer data, Session session) throws IOException {
         System.out.println("broadcastBinary: " + data);
@@ -654,21 +697,25 @@ To send binary data to the endpoint you need to set the binaryType property of W
             }
         }
     }
+    ```
 
-    Note. You will need to add an import statement for java.nio.ByteBuffer.
+    Note. You will need to add an import statement for `java.nio.ByteBuffer`.
 
 You can modify the application to enable the user to stop sending data to the endpoint. By default all peers are connected as soon as they open the page and data is sent from the browser to all connected peers. You can add a simple conditional so that data is not sent to the endpoint unless the option is selected. This does not affect receiving data. Data is still received from the endpoint.
 
-    Modify the defineImage method in whiteboard.js to add the following code (in bold).
+1. Modify the `defineImage` method in `board.js` to add the following code.
 
+    ```
             drawImageText(json);
         if (document.getElementById("instant").checked) {
             sendText(json);
         }
     }
+    ```
 
     The conditional code that you checks that if the element with the id checked
-    Open index.html and modify the <table> element to add a checkbox to the form.
+
+2. Open index.html and modify the <table> element to add a checkbox to the form.
 
     <tr>
         <th> </th>
