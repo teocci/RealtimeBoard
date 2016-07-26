@@ -95,7 +95,7 @@ In this exercise you will use a wizard in the IDE to help you create the WebSock
     }
     ```
 
-    Add the following field (in bold) to the class.
+    Add the following field to the class.
 
     ```
     @ServerEndpoint("/actions")
@@ -156,7 +156,7 @@ In this exercise you will create a JavaScript file that will initiate a WebSocke
 
     This script will initiate the session handshake with the server when websocket.js is loaded by the browser.
 
-5. Open index.html and add the following code (in bold) to the bottom of the file to load websocket.js when the page is finished loading.
+5. Open index.html and add the following code to the bottom of the file to load websocket.js when the page is finished loading.
 
     ```
     <body>
@@ -172,7 +172,7 @@ You can now test that the WebSocket endpoint is working and that the session is 
 
 In this exercise you will add some some simple methods to the JavaScript file to print the wsURI to the browser window when the browser is connected to the endpoint.
 
-1. Add the following <div> tag (in bold) to index.html
+1. Add the following <div> tag to index.html
 
     ```
     <h1>Collaborative Whiteboard App</h1>
@@ -473,7 +473,7 @@ In this exercise you will create a JavaScript file that puts the details of the 
     
     Note. You can delete the code that you added to websocket.js for testing the endpoint.
     
-6. Add the following line (in bold) to the bottom of index.html to load js/board.js.
+6. Add the following line to the bottom of index.html to load js/board.js.
 
     ```
             </table>
@@ -489,7 +489,7 @@ For more details, see the section about message types and encoders and decoders 
 
 1. Right-click the project node and choose New > Java Class.
 2. Type FigureEncoder as the Class Name and choose org.sample.whiteboardapp in the Package dropdown list. Click Finish.
-3. In the source editor, implement the WebSocket Encoder interface by adding the following code (in bold):
+3. In the source editor, implement the WebSocket Encoder interface by adding the following code:
 
     ```
     public class FigureEncoder implements Encoder.Text<Figure> {
@@ -501,7 +501,7 @@ For more details, see the section about message types and encoders and decoders 
 
     Place your cursor in the class declaration and type Alt-Enter and choose Implement all abstract methods from the popup menu.
 
-5. Modify the generated abstract methods by making the following changes (in bold). Save your changes.
+5. Modify the generated abstract methods by making the following changes. Save your changes.
 
     ```
     @Override
@@ -522,7 +522,7 @@ For more details, see the section about message types and encoders and decoders 
 
 6. Right-click the project node and choose New > Java Class.
 7. Type FigureDecoder as the Class Name and choose org.sample.whiteboardapp in the Package dropdown list. Click Finish.
-8. In the source editor, implement the WebSocket Decoder interface by adding the following code (in bold):
+8. In the source editor, implement the WebSocket Decoder interface by adding the following code:
 
     ```
     public class FigureDecoder implements Decoder.Text<Figure> {
@@ -530,7 +530,7 @@ For more details, see the section about message types and encoders and decoders 
     }
     ```
 9. Add an import statement for javax.websocket.Decoder and implement abstract methods.
-10. Make the following changes (in bold) to the generated abstract methods.
+10. Make the following changes to the generated abstract methods.
 
     ```
     @Override
@@ -565,12 +565,13 @@ For more details, see the section about message types and encoders and decoders 
 11. Fix the imports and save your changes.
 
 You now need to modify BoardServer.java to specify the encoder and decoder.
+
 ### Running the Application
 
 You are now almost ready to run the application. In this exercise you modify the WebSocket endpoint class to specify the encoder and decoder for the JSON string and to add a method to send the JSON string to connected clients when a message is received.
 
 1. Open BoardServer.java in the editor.
-2. Modify the @ServerEndpoint annotation to specify the encoder and decoder for the endopoint. Note that you need to explicitly specify the value parameter for the name of the endpoint.
+2. Modify the `@ServerEndpoint` annotation to specify the encoder and decoder for the endopoint. Note that you need to explicitly specify the value parameter for the name of the endpoint.
 
     ```
     @ServerEndpoint(value="/actions", encoders = {FigureEncoder.class}, decoders = {FigureDecoder.class})
