@@ -58,8 +58,8 @@ The goal of part is to create a web application project using the Project wizard
 5. Select `Web Application` from the `Additional Librares and Framaeworks`. Click Next.
 6. Type RealtimeBoard for the the Project Name and set the Project Location. Click Finish.
 
-![Project details in the New Project wizard 1](http://i.imgur.com/VOxtyvH.png)
-![Project details in the New Project wizard 2](http://i.imgur.com/4Yms5aP.png)
+
+<img src="http://i.imgur.com/THzfAPL.png" height="419" width="371" ><img src="http://i.imgur.com/4Yms5aP.png" height="419" width="371" >
 
 When you click Finish, the IDE creates the project and opens the project in the Projects window.
 
