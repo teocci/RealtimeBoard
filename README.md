@@ -204,7 +204,7 @@ When you run the application the IDE will start the GlassFish server and build a
 
 <img src="http://i.imgur.com/Fym2UT0.png" height="90%" width="90%" >
 
-In the browser window you can see the following endpoint where messages are accepted: http://localhost:8080/RealtimeBoard/actions
+In the browser window you can see the following endpoint where messages are accepted: -http://localhost:8080/RealtimeBoard/actions-
 
 ## Creating the RealtimeBoard
 
@@ -221,10 +221,11 @@ In this exercise you add a canvas element and a form element to the default inde
     <table>
         <tr>
             <td>
+                ...
             </td>
             <td>
                 <form name="inputForm">
-                    
+                    ... 
                 </form>
             </td>
         </tr>
@@ -241,6 +242,7 @@ In this exercise you add a canvas element and a form element to the default inde
             <td>
                 <canvas id="myCanvas" width="150" height="150" style="border:1px solid #000000;"></canvas>
             </td>
+            ...
     ```
 
 4. Add the following `<table>` to add radio buttons to select the color and shape. Save your changes.
@@ -270,6 +272,7 @@ In this exercise you add a canvas element and a form element to the default inde
                         </tr>
                     </table>
                 </form>
+                ...
     ```
 
 The shape, color, and coordinates of any figure drawn on the canvas will be converted to a string in a JSON structure and sent as a message to the WebSocket endpoint.
