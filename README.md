@@ -202,7 +202,7 @@ Now we will add some simple methods to the JavaScript file to print the wsURI to
 
 When you run the application the IDE will start the GlassFish server and build and deploy the application. The index page will open in your browser and you will see the following message in the browser window.
 
-<img src="http://i.imgur.com/Fym2UT0.png" height="50%" width="50%" >
+<img src="http://i.imgur.com/Fym2UT0.png" height="90%" width="90%" >
 
 In the browser window you can see the following endpoint where messages are accepted: http://localhost:8080/RealtimeBoard/actions
 
