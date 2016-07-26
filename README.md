@@ -1,33 +1,33 @@
-# RealtimeBoard: Web Application based on WebSocket API for Java
+# Web Application based on WebSocket API for Java
 
-This tutorial demonstrates how to create a simple web application that enables collaboration between client browsers that are connected to a single server application. When a user draws a graphic element on a canvas in the client browser the element appears on the canvas of all connected clients. 
+This tutorial demonstrates how to create a simple web application that enables collaboration between client browsers that are connected to a single server. When a user draws a graphic element on the canvas in his client browser the element appears on the canvas of all connected clients. 
 
 How does it work? 
 Well, when the browser loads the web page a client-side script sends a WebSocket handshake request to the application server. The application can accept JSON and binary messages from the clients connected in the session and broadcast the messages to all the connected clients.
 
-In this tutorial we will create a web application that uses the Java API for WebSocket ([JSR 356](http://www.jcp.org/en/jsr/detail?id=356)) to enable bi-directional communication between browser clients and the application server. The Java API for WebSocket provides support for creating WebSocket Java components, initiating and intercepting WebSocket events and creating and consuming WebSocket text and binary messages. The tutorial will also demonstrate how you can use the Java API for JSON Processing ([JSR 353](http://jcp.org/en/jsr/detail?id=353)) to produce and consume JSON. The Java API for WebSocket and the Java API for JSON Processing are part of the Java EE 7 platform ([JSR 342](http://jcp.org/en/jsr/detail?id=342)).
+In this github project you can find a web application that uses the Java API for WebSocket ([JSR 356](http://www.jcp.org/en/jsr/detail?id=356)) to enable bi-directional communication between browser clients and the application server. The Java API for WebSocket provides support for creating WebSocket Java components, initiating and intercepting WebSocket events and creating and consuming WebSocket text and binary messages. This repository will also demonstrate how you can use the Java API for JSON Processing ([JSR 353](http://jcp.org/en/jsr/detail?id=353)) to produce and consume JSON. The Java API for WebSocket and the Java API for JSON Processing are part of the Java EE 7 platform ([JSR 342](http://jcp.org/en/jsr/detail?id=342)).
 
-The application contains a WebSocket endpoint and decoder and encoder interfaces, a web page and some JavaScript files that are run in the client browser when the page is loaded or when invoked from a form in the web page. You will deploy the application to GlassFish Server Open Source Edition 4, the reference implementation of Java EE 7 technology.
+The application contains a WebSocket `endpoint`, a `decoder` and `encoder` interfaces, a web page and some JavaScript files that are run in the client browser when the page is loaded or when invoked from a form in the web page. You will deploy the application to GlassFish Server Open Source Edition 4, the reference implementation of Java EE 7 technology.
 
 Note. This tutorial is based on the [Collaborative Whiteboard using WebSocket in GlassFish 4 - Text/JSON and Binary/ArrayBuffer Data Transfer (TOTD #189)](https://blogs.oracle.com/arungupta/entry/collaborative_whiteboard_using_websocket_in) blog post.
 
 
 Tutorial Exercises
-Content on this page applies to NetBeans IDE 7.3, 7.4 and 8.0
+Content on this page applies to IntelliJ IDEA 2016-2
 
-* Creating the Web Application Project
-* Creating the WebSocket Endpoint
-    - Create the Endpoint
-    - Initiate the WebSocket Session
-    - Test the Endpoint
-* Creating the Whiteboard
-    - Add the Canvas
-    - Create the POJO
-    - Create a Coordinates Class
-    - Generate the JSON String
-    - Implement the Encoder and Decoder Interfaces
-    - Run the Application
-* Sending Binary Data to the Endpoint
+* [Creating the Web Application Project]()
+* [Creating the WebSocket Endpoint]()
+    - [Create the Endpoint]()
+    - [Initiate the WebSocket Session]()
+    - [Test the Endpoint]()
+* [Creating the RealtimeBoard]()
+    - [Add the Canvas]()
+    - [Create the POJO]()
+    - [Create a Coordinates Class]()
+    - [Generate the JSON String]()
+    - [Implement the Encoder and Decoder Interfaces]()
+    - [Run the Application]()
+* [Sending Binary Data to the Endpoint]()
 
 To follow this tutorial, you need the following software and resources.
 
@@ -35,9 +35,9 @@ To follow this tutorial, you need the following software and resources.
 | ------------------------------------- | -----------------:|
 | IntelliJ IDEA                         | version 2016-2    |
 | Java Development Kit (JDK)            | version 7 or 8    |
-| GlassFish Server Open Source Edition  | 4                 |
+| GlassFish Server Open Source Edition  | 4.1                 |
 
-Note. GlassFish 4 is bundled with the Java EE download bundle of NetBeans IDE.
+Note. GlassFish 4.1 can be [download here](https://glassfish.java.net/download.html).
 
 ## Prerequisites
 
@@ -46,19 +46,20 @@ This document assumes you have some basic knowledge of, or programming experienc
 * Java Programming
 * JavaScript/HTML Programming
 
-You can download a zip archive of the finished project.
+You can fork this repository or [download a zip archive](https://github.com/teocci/RealtimeBoard/archive/master.zip) of the finished project.
 
 ## Creating the Web Application Project
-The goal of this exercise is to create a web application project using the New Project wizard in the IDE. When you create the project you will select Java EE 7 as the Java EE version and GlassFish 4 as the application server. GlassFish 4 is the reference implementation of the Java EE 7 platform. You must have an application server that supports Java EE 7 registered with the IDE to create the application in this tutorial.
+The goal of part is to create a web application project using the Project wizard in the IDE. When you create the project you will select Java EE 7 as the Java EE version and GlassFish 4.1 as the application server. GlassFish 4.1 is the reference implementation of the Java EE 7 platform. You must have an application server that supports Java EE 7 registered with the IDE to create the application in this tutorial.
 
-1. Choose File > New Project from the main menu.
+1. Choose `File` > `New Project` from the main menu.
 2. Select Java Enterprise. Click Next.
-3. Type RealtimeBoard for the the Project Name and set the Project Location.
-4. Type net.teocci for the Group Id. Click Next.
-5. Select GlassFish Server 4.1 for the Server.
-6. Set the Java EE Version to Java EE 7 Web. Click Finish.
+3. Select GlassFish Server 4.1 for the Server.
+4. Set the Java EE Version to Java EE 7 Web.
+5. Select `Web Application` from the `Additional Librares and Framaeworks`. Click Next.
+6. Type RealtimeBoard for the the Project Name and set the Project Location. Click Finish.
 
-![Project details in the New Project wizard](http://i.imgur.com/VOxtyvH.png)
+![Project details in the New Project wizard 1](http://i.imgur.com/VOxtyvH.png)
+![Project details in the New Project wizard 2](http://i.imgur.com/4Yms5aP.png)
 
 When you click Finish, the IDE creates the project and opens the project in the Projects window.
 
