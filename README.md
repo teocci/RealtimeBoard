@@ -93,7 +93,7 @@ In this exercise you will use a wizard in the IDE to help you create the WebSock
     }
     ```
 
-    Add the following `private static` peers field to the class.
+5. Add the following `private static` peers field to the class.
 
     ```
     @ServerEndpoint("/actions")
@@ -107,7 +107,7 @@ In this exercise you will use a wizard in the IDE to help you create the WebSock
     }
     ```
     
-7. Add the following `onOpen` and `onClose` methods.
+6. Add the following `onOpen` and `onClose` methods.
 
     ```
     @OnOpen
@@ -126,7 +126,7 @@ In this exercise you will use a wizard in the IDE to help you create the WebSock
     Use the hints and code completion in the source editor to help you generate the methods. Click the hint glyph in the left margin next to the class declaration (or place the insert cursor in the class declaration and type Alt-Enter) and select the method in the popup menu. The code completion can help you code the method.
     screenshot of Code Hint in the Source Editor
 
-8.Right-click in the editor and choose Fix Imports. Save your changes.
+7. Right-click in the editor and choose Fix Imports. Save your changes.
 
     You will see that import statements for classes in `javax.websocket` are added to the file.
 
