@@ -79,7 +79,7 @@ In this exercise you will use a wizard in the IDE to help you create the WebSock
 3. After the Package creation, right-click the new Package created (`net.teocci.websocket`) in the Projects window and choose New > Java Class.
 4. Type BoardServer as the Class Name. Click OK.
 
-    When you click OK the IDE generates the BoardServer class and opens the file in the source editor. In order to make this class as a Websocket Endpoint we need to add some annotations that are part of the WebSocket API. The class should be annotated with `@ServerEndpoint` to identify the class as an endpoint and the WebSocket URI must be specified as a parameter of the annotation. We also need to add a default onMessage method that is annotated with `@OnMessage`. A method annotated with `@OnMessage` is invoked each time that the client receives a WebSocket message. Now copy and past this piece of code:
+    When you click OK the IDE generates the BoardServer class and opens the file in the source editor. In order to make this class as a Websocket Endpoint we need to add some annotations that are part of the WebSocket API. The class should be annotated with `@ServerEndpoint` to identify the class as an endpoint and the WebSocket URI (**wsURI**) must be specified as a parameter of the annotation. We also need to add a default onMessage method that is annotated with `@OnMessage`. A method annotated with `@OnMessage` is invoked each time that the client receives a WebSocket message. Now copy and past this piece of code:
 
     ```
     @ServerEndpoint("/actions")
@@ -134,12 +134,13 @@ The endpoint is now created. You now need to create a JavaScript file to initiat
 
 ## Initiate the WebSocket Session
 
-In this exercise you will create a JavaScript file that will initiate a WebSocket session. The browser client joins a session via an HTTP 'handshake' with the server over TCP. In the JavaScript file you will specify the name of the wsURI of the endpoint and declare the WebSocket. The wsURI URI scheme is part of the WebSocket protocol and specifies the path to the endpoint for the application.
+We have our Endpoint ready but now we need to create a JavaScript file that will initiate a WebSocket session. This is, when the browser client joins a session via an HTTP 'handshake' with the server over TCP. In the JavaScript file you will specify the name of the **wsURI** of the endpoint and declare the WebSocket. The wsURI URI scheme is part of the WebSocket protocol and specifies the path to the endpoint for the application.
 
-1. Right-click the project node in the Projects window and choose New > Other.
-2. Select JavaScript File in the Web category of the New File wizard. Click Next.
-3. Type websocket for the JavaScript File Name. Click Finish.
-4. Add the following to the JavaScript file.
+1. Right-click the web node in the Projects window and choose New > Directory.
+2. Type -js- for the JavaScript Directory. Click OK.
+3. Right-click the the -js- directory node in the Projects window and choose New > JavaScript File.
+4. Type -websocket- for the JavaScript File Name. Click OK.
+5. Add the following to the JavaScript file.
 
     ```
     var wsUri = "ws://" + document.location.host + document.location.pathname + "actions";
@@ -152,33 +153,33 @@ In this exercise you will create a JavaScript file that will initiate a WebSocke
     }
     ```
 
-    This script will initiate the session handshake with the server when websocket.js is loaded by the browser.
+    This script will initiate the session handshake with the server when `websocket.js` is loaded by the browser.
 
-5. Open index.html and add the following code to the bottom of the file to load websocket.js when the page is finished loading.
+5. Open index.html and add the following code to the bottom of the file to load `websocket.js` when the page is finished loading.
 
     ```
     <body>
         <h1>Collaborative Whiteboard App</h1>
             
-        <script type="text/javascript" src="websocket.js"></script>
+        <script type="text/javascript" src="js/websocket.js"></script>
     </body>
     ```
 
-You can now test that the WebSocket endpoint is working and that the session is started and the client is added to the session.
+We can now test that the WebSocket endpoint is working and that the session is started and the client is added to the session.
 
 ## Testing the Endpoint
+Now we will add some simple methods to the JavaScript file to print the wsURI to the browser window when it is connected to the endpoint.
 
-In this exercise you will add some some simple methods to the JavaScript file to print the wsURI to the browser window when the browser is connected to the endpoint.
-
-1. Add the following <div> tag to index.html
+1. Add the following `<div>` tag to `index.jsp` file
 
     ```
     <h1>Collaborative Whiteboard App</h1>
             
     <div id="output"></div>
-    <script type="text/javascript" src="websocket.js"></script>
+    <script type="text/javascript" src="js/websocket.js"></script>
     ```
-2. Add the following declaration and methods to websocket.js. Save your changes.
+
+2. Add the following declaration and methods to `websocket.js`. Save your changes.
 
     ```
     // For testing purposes
@@ -197,11 +198,11 @@ In this exercise you will add some some simple methods to the JavaScript file to
 
     When the page loads the JavaScript functions will print the message that the browser is connected to the endpoint. You can delete the functions after you confirm that the endpoint is performing correctly.
 
-3. Right-click the project in the Projects window and choose Run.
+3. Now click on the green triangle from the Toolbar to run the project.
 
 When you run the application the IDE will start the GlassFish server and build and deploy the application. The index page will open in your browser and you will see the following message in the browser window.
 
-Connected to endpoint message in browser window
+<img src="http://i.imgur.com/Fym2UT0.png" height="50%" width="50%" >
 
 In the browser window you can see the following endpoint where messages are accepted: http://localhost:8080/RealtimeBoard/actions
 
@@ -475,7 +476,7 @@ In this exercise you will create a JavaScript file that puts the details of the 
 
     ```
             </table>
-        <script type="text/javascript" src="websocket.js"></script>
+        <script type="text/javascript" src="js/websocket.js"></script>
         <script type="text/javascript" src="js/board.js"></script>
     <body>
     ```    
