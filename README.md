@@ -74,14 +74,12 @@ For more about using WebSocket APIs and annotations, see the summary of the java
 
 In this exercise you will use a wizard in the IDE to help you create the WebSocket endpoint class.
 
-1. Right-click the Source Packages node in the Projects window and choose New > Other.
-2. Select WebSocket Endpoint in the Web category. Click Next.
-3. Type BoardServer as the Class Name.
-4. Select net.teocci.websocket in the Package dropdown list.
-5. Type /actions as the WebSocket URI. Click Finish.
-6. WebSocket Endpoint in the New File wizard
+1. Right-click the Source Packages node (`src`) in the Projects window and choose New > Package.
+2. Type, for example net.teocci.websocket. Click OK.
+3. After the Package creation, right-click the new Package created (`net.teocci.websocket`) in the Projects window and choose New > Java Class.
+4. Type BoardServer as the Class Name. Click OK.
 
-    When you click Finish the IDE generates the WebSocket Endpoint class and opens the file in the source editor. In the editor you can see that the IDE generated some annotations that are part of the WebSocket API. The class is annotated with @ServerEndpoint to identify the class as an endpoint and the WebSocket URI is specified as a parameter of the annotation. The IDE also generated a default onMessage method that is annotated with @OnMessage. A method annotated with @OnMessage is invoked each time that the client receives a WebSocket message.
+    When you click OK the IDE generates the BoardServer class and opens the file in the source editor. In order to make this class as a Websocket Endpoint we need to add some annotations that are part of the WebSocket API. The class should be annotated with `@ServerEndpoint` to identify the class as an endpoint and the WebSocket URI must be specified as a parameter of the annotation. We also need to add a default onMessage method that is annotated with `@OnMessage`. A method annotated with `@OnMessage` is invoked each time that the client receives a WebSocket message. Now copy and past this piece of code:
 
     ```
     @ServerEndpoint("/actions")
@@ -95,7 +93,7 @@ In this exercise you will use a wizard in the IDE to help you create the WebSock
     }
     ```
 
-    Add the following field to the class.
+    Add the following `private static` peers field to the class.
 
     ```
     @ServerEndpoint("/actions")
@@ -109,7 +107,7 @@ In this exercise you will use a wizard in the IDE to help you create the WebSock
     }
     ```
     
-7. Add the following onOpen and onClose methods.
+7. Add the following `onOpen` and `onClose` methods.
 
     ```
     @OnOpen
@@ -123,7 +121,7 @@ In this exercise you will use a wizard in the IDE to help you create the WebSock
     }
     ```
 
-    You can see that the onOpen and onClose methods are annotated with @OnOpen and @OnClose WebSocket API annotations. A method annotated with @OnOpen is called when the web socket session is opened. In this example the annotated onOpen method adds the browser client to the group of peers in the current session and the onClose method removes the browser from the group.
+    You can see that the `onOpen` and `onClose` methods are annotated with `@OnOpen` and `@OnClose` WebSocket API annotations. A method annotated with `@OnOpen` is called when the web socket session is opened. In this example the annotated `onOpen` method adds the browser client to the group of peers in the current session and the `onClose` method removes the browser from the group.
 
     Use the hints and code completion in the source editor to help you generate the methods. Click the hint glyph in the left margin next to the class declaration (or place the insert cursor in the class declaration and type Alt-Enter) and select the method in the popup menu. The code completion can help you code the method.
     screenshot of Code Hint in the Source Editor
