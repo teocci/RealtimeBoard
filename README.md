@@ -15,8 +15,8 @@ Note. This tutorial is based on the [Collaborative Whiteboard using WebSocket in
 Tutorial Exercises
 Content on this page applies to IntelliJ IDEA 2016-2
 
-* [Creating the Web Application Project]()
-* [Creating the WebSocket Endpoint]()
+* [Creating the Web Application Project](#creating-the-web-application-project)
+* [Creating the WebSocket Endpoint](#creating-the-websocket-endpoint)
     - [Create the Endpoint]()
     - [Initiate the WebSocket Session]()
     - [Test the Endpoint]()
