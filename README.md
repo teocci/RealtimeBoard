@@ -108,7 +108,7 @@ In this exercise you will use a wizard in the IDE to help you create the WebSock
         }
     }
     ```
-
+    
 7. Add the following onOpen and onClose methods.
 
     ```
@@ -281,7 +281,6 @@ In this exercise you add a canvas element and a form element to the default inde
 The shape, color, and coordinates of any figure drawn on the canvas will be converted to a string in a JSON structure and sent as a message to the WebSocket endpoint.
 
 ## Creating the POJO
-
 In this exercise you will create a simple POJO.
 
 1. Right-click the project node and choose New > Java Class.
@@ -293,6 +292,7 @@ In this exercise you will create a simple POJO.
         private JsonObject json;
     }
     ```
+    
     When you add the code you will be prompted to add an import statement for javax.json.JsonObject. If you are not prompted, type Alt-Enter.
     For more about javax.json.JsonObject, see the Java API for JSON Processing (JSR 353), which is part of the Java EE 7 Specification.
     
