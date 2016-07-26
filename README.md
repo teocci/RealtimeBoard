@@ -209,34 +209,32 @@ In the browser window you can see the following endpoint where messages are acce
 
 ## Creating the RealtimeBoard
 
-In this section you will create the classes and JavaScript files to send and receive JSON text messages. You will also add an HTML5 Canvas element for painting and displaying some content and an HTML <form> with radio buttons that enable you to specify the shape and color of the paintbrush.
+In this section you will create the classes and JavaScript files to send and receive JSON text messages. You will also add an HTML5 Canvas element for painting and displaying some content and an HTML `<form>` with radio buttons that enable you to specify the shape and color of the paintbrush.
 
 ### Add the Canvas to the Web Page
 In this exercise you add a canvas element and a form element to the default index page. The checkboxes in the form determine the properties of the paintbrush for the canvas.
 
 1. Open index.html in the source editor.
-2. Delete the <div> tag that you added to test the endpoint and add the following <table> and <form> elements (in bold) after the opening body tag.
+2. Delete the `<div>` tag that you added to test the endpoint and add the following `<table>` and `<form>`elements after the opening body tag.
 
     ```
     <h1>Collaborative Board App</h1>
-            
-        <table>
-            <tr>
-                <td>
-                </td>
-                <td>
-                    <form name="inputForm">
-                        
-    
-                    </form>
-                </td>
-            </tr>
-        </table>
-        <script type="text/javascript" src="js/websocket.js"></script>
-        </body>
+    <table>
+        <tr>
+            <td>
+            </td>
+            <td>
+                <form name="inputForm">
+                    
+                </form>
+            </td>
+        </tr>
+    </table>
+    <script type="text/javascript" src="js/websocket.js"></script>
+    </body>
     ```
 
-3. Add the following code (in bold) for the canvas element.
+3. Add the following code for the canvas element.
 
     ```
     <table>
@@ -246,7 +244,7 @@ In this exercise you add a canvas element and a form element to the default inde
             </td>
     ```
 
-4. Add the following <table> to add radio buttons to select the color and shape. Save your changes.
+4. Add the following `<table>` to add radio buttons to select the color and shape. Save your changes.
 
     ```
     <table>
@@ -257,7 +255,6 @@ In this exercise you add a canvas element and a form element to the default inde
             <td>
                 <form name="inputForm">
                     <table>
-    
                         <tr>
                             <th>Color</th>
                             <td><input type="radio" name="color" value="#FF0000" checked="true">Red</td>
@@ -265,7 +262,6 @@ In this exercise you add a canvas element and a form element to the default inde
                             <td><input type="radio" name="color" value="#FF9900">Orange</td>
                             <td><input type="radio" name="color" value="#33CC33">Green</td>
                         </tr>
-    
                         <tr>
                             <th>Shape</th>
                             <td><input type="radio" name="shape" value="square" checked="true">Square</td>
@@ -273,7 +269,6 @@ In this exercise you add a canvas element and a form element to the default inde
                             <td> </td>
                             <td> </td>
                         </tr>
-    
                     </table>
                 </form>
     ```
@@ -281,7 +276,7 @@ In this exercise you add a canvas element and a form element to the default inde
 The shape, color, and coordinates of any figure drawn on the canvas will be converted to a string in a JSON structure and sent as a message to the WebSocket endpoint.
 
 ## Creating the POJO
-In this exercise you will create a simple POJO.
+Now let's create a simple POJO.
 
 1. Right-click the project node and choose New > Java Class.
 2. Type Figure as the Class Name and choose net.teocci.model in the Package dropdown list. Click Finish.
@@ -299,7 +294,7 @@ In this exercise you will create a simple POJO.
     
 4. Create a getter and setter for json.
 
-    You can select getter and setter in the Insert Code popup menu (Alt-Ins on Windows; Ctrl-I on Mac) to open the Generate 
+    You can select getter and setter in the Insert Code popup menu to open the Generate 
     
     Getters and Setter dialog box. Alternatively, you can choose Source > Insert Code from the main menu.
     
