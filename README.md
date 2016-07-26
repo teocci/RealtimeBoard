@@ -59,7 +59,7 @@ The goal of part is to create a web application project using the Project wizard
 6. Type RealtimeBoard for the the Project Name and set the Project Location. Click Finish.
 
 
-<img src="http://i.imgur.com/THzfAPL.png" height="419" width="371" ><img src="http://i.imgur.com/4Yms5aP.png" height="419" width="371" >
+<img src="http://i.imgur.com/THzfAPL.png" height="371" width="419" ><img src="http://i.imgur.com/4Yms5aP.png" height="371" width="419" >
 
 When you click Finish, the IDE creates the project and opens the project in the Projects window.
 
