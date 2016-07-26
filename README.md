@@ -285,7 +285,7 @@ In this exercise you will create a simple POJO.
 
 1. Right-click the project node and choose New > Java Class.
 2. Type Figure as the Class Name and choose net.teocci.model in the Package dropdown list. Click Finish.
-3. In the source editor, add the following (in bold):
+3. In the source editor, add the following:
 
     ```
     public class Figure {
@@ -294,11 +294,15 @@ In this exercise you will create a simple POJO.
     ```
     
     When you add the code you will be prompted to add an import statement for javax.json.JsonObject. If you are not prompted, type Alt-Enter.
+    
     For more about javax.json.JsonObject, see the Java API for JSON Processing (JSR 353), which is part of the Java EE 7 Specification.
     
 4. Create a getter and setter for json.
 
-    You can select getter and setter in the Insert Code popup menu (Alt-Ins on Windows; Ctrl-I on Mac) to open the Generate Getters and Setter dialog box. Alternatively, you can choose Source > Insert Code from the main menu.
+    You can select getter and setter in the Insert Code popup menu (Alt-Ins on Windows; Ctrl-I on Mac) to open the Generate 
+    
+    Getters and Setter dialog box. Alternatively, you can choose Source > Insert Code from the main menu.
+    
     Generate Getter and Setter dialog box
     
 5. Add a constructor for json.
@@ -310,6 +314,7 @@ In this exercise you will create a simple POJO.
     ```
     
     You can choose Constructor in the Insert Code popup menu (Ctrl-I).
+    
     Generate Constructor popup menu
     
 6. Add the following toString method:
@@ -323,7 +328,7 @@ In this exercise you will create a simple POJO.
     }
     ```
     
-7. Right-click in the editor and choose Fix Imports (Alt-Shift-I; ⌘-Shift-I on Mac). Save your changes.
+7. Right-click in the editor and choose Fix Imports. Save your changes.
 
 ### Create a Coordinates Class
 
@@ -369,6 +374,7 @@ In this exercise you will create a JavaScript file that puts the details of the 
 
 1. Right-click the project node and choose New > JavaScript File to open the New JavaScript File wizard.
 2. Type whiteboard for the File Name. Click Finish.
+    
     When you click Finish the IDE creates the empty JavaScript file and opens the file in the editor. You can see the new file under the Web Pages node in the Projects window.
 
 3. Add the following code to initialize the canvas and to add an event listener.
@@ -453,6 +459,7 @@ In this exercise you will create a JavaScript file that puts the details of the 
     ```
     
     You now need to add a sendText(json) method to send the JSON string using websocket.send().
+    
 5. Open websocket.js in the editor and add the following methods for sending JSON to the endpoint and for drawing the image when a message is received from the endpoint.
 
     ```
